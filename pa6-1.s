@@ -1,24 +1,39 @@
-		@---------------------
-		@	Programming Assignment 6, Problem 1
-		@	Your required header information goes here
-		@---------------------
-		@ In those you will use the provided function pow to comput
-		@ a^b - 3a
-		@ You must set up the arguments to pow and call it using BL
-		@ The result should be in R4 after the program completes
+	@---------------------
+	@		
+	@Authors: Gabriel Hernandez, Nick Moore
+	@Assignment:PA6-1.s
+	@Date:11.14.18
+	@
+	@Description:Code  will use the provided function pow to
+	@	compute a^b - 3a. The result is in R4 after the program
+	@	completes.
+	@	R0 holds a, R1 holds b, R4 holds the result	
+	@	
+	@---------------------
+	
 	.extern printf
 	.global	main
-	.func main	
+	.func main
 main:	PUSH {LR}
 	@	Your code goes here
-
+	LDR	R0, =a		@loads address a into R0
+	LDR	R0, [R0]	@loads contents of a into R0
+	LDR	R1, =b		@loads address b into R1
+	LDR	R1, [R1]	@loads contents of b into R1
+	
+	MOV	R4, R0		@moves a into R4
+	BL	pow		@calls function pow
+	
+	MOV	R5, #3		@moves 3 into R5
+	MUL	R4,R5,R4	@Computes 3a stores into R4
+	SUB	R4, R0,R4	@computes a^b-3a stores into R4
 
 	@ Code to print your answer.  DO NOT CHANGE!
 	LDR	R0, =out
 	MOV	R1, R4
 	BL 	printf
 	POP	{PC}
-		
+
 	@---------------------
 	@  pow function.  DO NOT CHANGE!
 	@---------------------
