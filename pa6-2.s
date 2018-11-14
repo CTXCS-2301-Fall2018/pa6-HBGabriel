@@ -1,16 +1,15 @@
-		@---------------------
-		@	Programming Assignment 6, Problem 2
-		@	Your required header information goes here
-		@--------------------
-		@	You are to write a function that performs integer division
-		@	Your function must be called div.  It takes two values, a and b passed as parameters,
-		@	and should return a/b.  Code is given for you that tests
-		@	your program.  Upon successful completion the following values should print
-		@	0
-		@	1
-		@	11
-		@	4
-		@	5
+	@---------------------
+	@
+	@Authors: Gabriel Hernandez, Nick Moore
+	@Assignment:PA6-2.s
+	@Date:11.14.18
+	@
+	@Description:Code creates a function that performs integer division
+	@	It takes two values, a and b passed as parameters,and returns
+	@	a/b. 
+	@	R0 holds a, R1 holds b, R0 holds the result
+	@
+	@--------------------
 	.extern printf
         .global main
         .func main 		
@@ -51,8 +50,27 @@ main:		@	DO NOT TOUCH!
 		@---------------------
 		@	div function.  Your code goes here!
 		@---------------------
-div:		PUSH	{LR}	@ Leave this here
+	
+div:
+		PUSH	{LR}		@ Leave this here
+		MOV	R2, R1		@Moves R1 into R2
+		MOV	R1, R0		@Moves R0 into R1
+		MOV	R4, R2
+		CMP	R4, R1,LSR #1
+	div1:
+		MOVLS 	R4, R4, LSL #1
+		CMP	R4, R1, LSR#1
+		BLS 	div1
+		MOV	R3, #0
+	div2:
+		CMP	R1, R4
+		SUBCS 	R1, R1, R4
+		ADC	R3, R3, R3
 
+		MOV 	R4, R4, LSR#1
+		CMP 	R4, R2
+		BHS 	div2
+		MOV	R0, R3		@Moves R3 into R0
 		@ Your code here
 	
 		POP	{PC} 	@ return statement
